@@ -1,11 +1,15 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
+from preprocessing import lemma_tokenizer, stop_words
 import numpy as np     
 
 
 def term_doc_matrix(documents):
-    'Returns the term-document association matrix using tf-idf as weights'
+    '''
+    Returns the term-document association matrix using tf-idf as weights
+    and the vocabulary 
+    '''
 
-    vectorizer = TfidfVectorizer(min_df=1, stop_words="english")
+    vectorizer = TfidfVectorizer(min_df=1, tokenizer=lemma_tokenizer, stop_words=stop_words)
     X = vectorizer.fit_transform(documents)
     return X.T, vectorizer.get_feature_names()
 

@@ -1,7 +1,6 @@
 from nltk.stem import WordNetLemmatizer 
 from nltk.tokenize import RegexpTokenizer
-import nltk
-
+from nltk.corpus import stopwords
 
 # Create Lemmatizer
 lemmatizer = WordNetLemmatizer() 
@@ -10,29 +9,22 @@ lemmatizer = WordNetLemmatizer()
 tokenizer = RegexpTokenizer("\w+")
 
 # Spanish stop words list
-sw = nltk.corpus.stopwords.words('spanish')
+stop_words = stopwords.words('english')
 
 
-# This method defines how documents are preprocessed
-def Preprocess(text):
+def lemma_tokenizer(text):
    '''
-   Returns the document as a token list 
+   Custom tokenizer for sklearn's tfidfVectorizer
    Tokens are lemmatized
-   Stop words are removed
    '''
    
    # Tokenize document
    tokens = tokenizer.tokenize(text)
 
-   # Loop through tokens and
-   # - convert to lower case
-   # - remove Stop Words
-   # - lemmatize words
-   words = []
-   for word in tokens:
-      w = word.lower()
-      if w in sw:
-         continue
-      words.append(lemmatizer.lemmatize(w))
+   # Loop through tokens and lemmatize them
+   for i in range(len(tokens)):
+      word = tokens[i]
+      if word.lower() not in stop_words:
+         tokens[i] = lemmatizer.lemmatize(word.lower())
 
-   return words
+   return tokens
