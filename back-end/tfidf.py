@@ -1,5 +1,5 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
-from preprocessing import lemma_tokenizer, stop_words
+from preprocessing import pre_process, stop_words
 import numpy as np     
 
 
@@ -9,7 +9,7 @@ def term_doc_matrix(documents):
     and the vocabulary 
     '''
 
-    vectorizer = TfidfVectorizer(min_df=1, tokenizer=lemma_tokenizer, stop_words=stop_words)
+    vectorizer = TfidfVectorizer(min_df=1, analyzer=pre_process, stop_words=stop_words)
     X = vectorizer.fit_transform(documents)
     return X.T, vectorizer.get_feature_names()
 
