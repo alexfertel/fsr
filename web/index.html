@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>Your page title here :)</title>
+  <title>File System Retrieval</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
@@ -13,33 +14,35 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/barebones.css">
-
-  <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="images/favicon-16.png">
+  <!-- import CSS -->
+  <link rel="stylesheet" href="css/element.css">
+  <!-- import JavaScript -->
 
 </head>
-<body>
 
-  <!-- Primary Page Layout
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <div class="grid-container halves">
-      <div>
-        <h4>Basic Page</h4>
-        <p>This index.html page is a placeholder with the CSS, font and favicon. It's just waiting for you to add some content! If you need some help hit up the <a href="https://acahir.github.io/Barebones/">Barebones documentation</a>.</p>
-      </div>
+<body>
+  <div id="root">
+    <div style="align-items: center;">
+      <el-tabs type="border-card" v-model="active" style="height: 98vh;">
+        <el-tab-pane label="Choose a model">
+          <el-container>
+            <el-main>
+              <el-button type="primary" @click="load_vector_model">Vector</el-button>
+    
+            </el-main>
+          </el-container>
+  
+  
+        </el-tab-pane>
+        <el-tab-pane label="Make a query">Config</el-tab-pane>
+        <el-tab-pane label="Evaluate the model">Role</el-tab-pane>
+      </el-tabs>
     </div>
   </div>
 
-<!-- End Document
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script src="js/vue.js"></script>
+  <script src="js/element.js"></script>
+  <script src="js/main.js"></script>
 </body>
+
 </html>
