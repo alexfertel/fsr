@@ -19,31 +19,51 @@
   <link rel="stylesheet" href="css/spectre.min.css">
   <link rel="stylesheet" href="css/spectre-icons.min.css">
   <link rel="stylesheet" href="css/spectre-exp.min.css">
+  <link rel="stylesheet" href="css/custom.css">
 
 </head>
 
 <body>
   <div id="root">
-    <div style="align-items: center;">
-      <el-tabs type="border-card" v-model="active" style="height: 98vh;">
-        <el-tab-pane label="Choose a model">
-          <el-container>
-            <el-main>
-              <el-button type="primary" @click="load_vector_model">Vector</el-button>
-    
-            </el-main>
-          </el-container>
-  
-  
-        </el-tab-pane>
-        <el-tab-pane label="Make a query">Config</el-tab-pane>
-        <el-tab-pane label="Evaluate the model">Role</el-tab-pane>
-      </el-tabs>
+    <div class="container" style="padding-top: 25px; height: 100vh;">
+      <div class="columns" style="padding-bottom: 25px;">
+        <div class="column col-12">
+          <ul class="step">
+            <li class="step-item" :class="{active: activeStep == index}" v-for="(step, index) in steps">
+              <a href="#" class="tooltip tooltip-bottom" :data-tooltip="'Step ' + index">{{step.text}}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- <div class="divider"></div> -->
+
+      <div class="columns" v-if="activeStep == 0">
+        <div class="column col-6 center-parent" style="text-align: center; height: 70vh;">
+          <button class="btn btn-primary center-child" @click="load_vector_model">Vector</button>
+        </div>
+        <div class="column col-6 center-parent" style="text-align: center; height: 70vh; padding-right: 130px;">
+          <button class="btn btn-primary center-child" @click="load_latent_model">Latent</button>
+        </div>
+      </div>
+
+      <div v-if="activeStep == 1">
+        <div class="columns" >
+          <div class="column col-12" style="text-align: center;">
+            <button class="btn btn-primary" @click="load_vector_model">Vector</button>
+          </div>
+          <div class="column col-6" style="text-align: center;">
+            <button class="btn btn-primary" @click="load_latent_model">Latent Semantic</button>
+          </div>
+        </div>  
+      </div>
+      
+
+
     </div>
   </div>
 
   <script src="js/vue.js"></script>
-  <script src="js/element.js"></script>
   <script src="js/main.js"></script>
 </body>
 
