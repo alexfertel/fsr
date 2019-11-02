@@ -18,7 +18,8 @@ The following Python packages are required:
 * nltk
 * scipy
 * numpy
-* sklearn
+* scikit-learn
+* pdfminer3
 
 In addition, the *wordnet* lemmatizer and the stopwords from the *nltk* package need to be installed separately by executing the following instructions in a Python shell:
 
