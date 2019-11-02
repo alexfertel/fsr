@@ -27,6 +27,15 @@ nltk.download('wordnet')
 nltk.download('stopwords')
 ```
 
+# Information Retrieval Model
+This information retrieval system uses the **Latent Semantic Indexing Model**.
+
+The main idea in this model is to map each document and query vector into a lower dimensional space which is associated with concepts.
+
+This is accomplished by mapping the index term vectors into this lower dimensional space
+
+For further details on this model, please refer to <https://nlp.stanford.edu/IR-book/html/htmledition/latent-semantic-indexing-1.html>
+
 # Running it
 
 To run it, use:
