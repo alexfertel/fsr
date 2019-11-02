@@ -64,17 +64,3 @@ class LatentSemanticModel:
       results.sort(reverse=True)
 
       return results
-
-
-if __name__ == "__main__":
-   # TESTS
-   corpus = [
-      'This is the first document.',
-      'This document is the second document.',
-      'And this is the third one.',
-      'Is this the first document?',
-   ]
-   a = LatentSemanticModel(80)
-   a.index(corpus)
-   print(a.query("first"))
-    
