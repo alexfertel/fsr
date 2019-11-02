@@ -3,7 +3,7 @@ from preprocessing import pre_process, stop_words
 import numpy as np     
 
 
-def term_doc_matrix(documents):
+def tfidf(documents):
     '''
     Returns the term-document association matrix using tf-idf as weights
     and the vocabulary 
@@ -22,4 +22,4 @@ if __name__ == "__main__":
         'And this is the third one.',
         'Is this the first document?',
     ]
-    print(term_doc_matrix(corpus))
+    print(tfidf(corpus))
