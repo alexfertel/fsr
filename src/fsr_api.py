@@ -1,0 +1,2 @@
+from back_end.latent_semantic import LatentSemanthicModel
+
