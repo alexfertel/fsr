@@ -6,7 +6,7 @@ def extract_text(path):
     files = read_dir(path)
     # print(files)
     result = extract_txts(files['txts']) + extract_pdfs(files['pdfs'])
-    print(result)
+    # print(result)
     return result
 
 def read_dir(path):
