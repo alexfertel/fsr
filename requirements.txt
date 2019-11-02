@@ -1,0 +1,6 @@
+eel
+nltk
+pdfminer3
+scipy
+numpy
+scikit-learn

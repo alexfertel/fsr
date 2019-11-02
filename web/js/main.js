@@ -1,22 +1,51 @@
-var app = new Vue({
+let app = new Vue({
     el: '#root',
     data: {
-      activeStep: 0,
-      steps: [
-        {text: 'Choose a Model'},
-        {text: 'Make a query'},
-        {text: 'Evaluate'},
-      ]
+      start: false,
+      loading_model: false,
+      model: 'vector',
+      directory: '',
+      configured: false,
+      files: []
     },
     methods: {
-      load_vector_model: function() {
-        // Vector Model call here
-        console.log("aaaa");
-        this.activeStep++;
+      load_model (model){
+        this.loading_model = true;
+        this.model = model;
+
+        this.loading_model = false;
       },
-      load_latent_model() {
-        // Latent Semantic model here
-        this.activeStep++;
+      config (){
+        // Validate directory
+
+        // Load model
+
+        // Allow queries
+        this.configured = true;
+      },
+      load_files (){
+        eel.extract_text(this.directory)(read_files);
       }
+      // load_vector_model: function() {
+      //   this.loading_model = true;
+      //   this.model = 'vector';
+      //   // Vector Model call here
+
+
+      //   this.loading_model = false;
+      // },
+      // load_latent_model() {
+      //   this.loading_model = true;
+      //   this.model = 'latent semantic';
+        
+        
+      //   // Latent Semantic model here
+      //   this.loading_model = false;
+      // }
     }
   })
+
+
+  function read_files(files){
+    console.log(files);
+  }
