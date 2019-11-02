@@ -1,10 +1,12 @@
 var app = new Vue({
     el: '#root',
     data: {
+      start: false,
       loading_model: false,
       model: 'vector',
       directory: '',
-      configured: false
+      configured: false,
+      files: []
     },
     methods: {
       load_model (model){
