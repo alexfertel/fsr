@@ -1,4 +1,4 @@
-var app = new Vue({
+let app = new Vue({
     el: '#root',
     data: {
       start: false,
@@ -22,6 +22,9 @@ var app = new Vue({
 
         // Allow queries
         this.configured = true;
+      },
+      load_files (){
+        eel.extract_text(this.directory)(read_files);
       }
       // load_vector_model: function() {
       //   this.loading_model = true;
@@ -41,3 +44,8 @@ var app = new Vue({
       // }
     }
   })
+
+
+  function read_files(files){
+    console.log(files);
+  }
