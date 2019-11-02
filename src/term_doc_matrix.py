@@ -1,5 +1,5 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
-from preprocessing import pre_process, stop_words
+from .preprocessing import pre_process, stop_words
 import numpy as np     
 
 

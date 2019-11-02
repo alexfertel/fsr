@@ -1,5 +1,5 @@
-from tfidf import term_doc_matrix
-from preprocessing import pre_process
+from .term_doc_matrix import tfidf as term_doc_matrix
+from .preprocessing import pre_process
 from collections import defaultdict
 from scipy import linalg
 import numpy as np
