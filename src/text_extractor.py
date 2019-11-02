@@ -1,9 +1,7 @@
-import eel
 import os
-from .pdf_extractor import extract_pdfs
 from os.path import join, getsize
+from .pdf_extractor import extract_pdfs
 
-@eel.expose
 def extract_text(path):
     files = read_dir(path)
     # print(files)

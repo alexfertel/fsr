@@ -6,10 +6,6 @@ import numpy as np
 
 
 class LatentSemanticModel:
-   tfidf_table = None
-   vocabulary = None
-   idf_weights = None
-
    def __init__(self, s, tfidf_table=None, vocabulary=None, idf_weights=None):
       # Precomputed indices can be retrieved from local storage and passed to this model
       if tfidf_table and vocabulary and idf_weights:
@@ -60,7 +56,7 @@ class LatentSemanticModel:
 
       # Compute document-to-document matrix and sort rank of all documents with respect to the query
       doc_to_doc = query_tfidf.T.dot(query_tfidf)
-      results = [(doc_to_doc[0,j], j) for j in range(1, doc_to_doc.shape[1])]
+      results = [(doc_to_doc[0,j], j-1) for j in range(1, doc_to_doc.shape[1])]
       results.sort(reverse=True)
 
       return results
