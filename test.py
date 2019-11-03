@@ -13,14 +13,14 @@ if __name__ == "__main__":
 
 
     # LSI Model test
-    # a = LatentSemanticModel(80)
-    # a.index(corpus)
-    # print(a.query("first"))
+    a = LatentSemanticModel(80)
+    a.index(corpus)
+    print(a.query("first document"))
      
     # # TF-IDF test
-    # print(tfidf(corpus)[0])
+    print(tfidf(corpus)[0])
 
     # FSR API test
-    # f = FileSystemRetrieval(LatentSemanticModel(100))
-    # f.index_directory(os.getcwd()+'/a')
-    # print(f.query_directory('first'))
+    f = FileSystemRetrieval(LatentSemanticModel(100))
+    f.index_directory(os.getcwd()+'/a')
+    print(f.query_directory('first'))
