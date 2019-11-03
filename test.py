@@ -12,17 +12,19 @@ if __name__ == "__main__":
         'Is this the first document?',
     ]
 
-    corpus_folder = '/corpus/medicina_docs'
+    # corpus_folder = 'src/corpus/medicina docs [BIG]'
+    corpus_folder = '/home/alex/code/simulations/kojo/paper'
 
     # LSI Model test
-    a = LatentSemanticModel(80)
-    a.index(corpus)
-    pprint.pprint(a.query("first document"))
+    # a = LatentSemanticModel(80)
+    # a.index(corpus)
+    # pprint.pprint(a.query("first document"))
      
     # TF-IDF test
-    pprint.pprint(tfidf(corpus)[0])
+    # pprint.pprint(tfidf(corpus)[0])
 
     # FSR API test
     f = FileSystemRetrieval(LatentSemanticModel(100))
-    f.index_directory(os.getcwd() + corpus_folder)
-    pprint.pprint(f.query_directory('hemophilia and christmas disease, especially in regard to thespecific complication of pseudotumor formation (occurrence,pathogenesis, treatment, prognosis).'))
+    f.index_directory(corpus_folder)
+    # pprint.pprint(f.query_directory('hemophilia and christmas disease, especially in regard to the specific complication of pseudotumor formation (occurrence,pathogenesis, treatment, prognosis).'))
+    pprint.pprint(f.query_directory('mejora'))

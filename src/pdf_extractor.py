@@ -1,31 +1,25 @@
 import io
-from pdfminer3.layout import LAParams, LTTextBox
-from pdfminer3.pdfpage import PDFPage
-from pdfminer3.pdfinterp import PDFResourceManager, PDFPageInterpreter
-from pdfminer3.converter import PDFPageAggregator, TextConverter
-
+import sys
+import pdfminer3.settings
+pdfminer3.settings.STRICT = False
+import pdfminer3.high_level
+import pdfminer3.layout
+from pdfminer3.image import ImageWriter
 
 def extract_pdfs(files):
+    laparams = pdfminer3.layout.LAParams()
+    for param in ("all_texts", "detect_vertical", "word_margin", "char_margin", "line_margin", "boxes_flow"):
+        paramv = locals().get(param, None)
+        if paramv is not None:
+            setattr(laparams, param, paramv)
+
     extracted = []
-    for f in files:
-        resource_manager = PDFResourceManager()
-        fake_file_handle = io.BytesIO()
-        converter = TextConverter(resource_manager, fake_file_handle)
-        page_interpreter = PDFPageInterpreter(resource_manager, converter)
+    for fname in files:
+        outfp = io.StringIO()
+        with open(fname, "rb") as fp:
+            pdfminer3.high_level.extract_text_to_fp(fp, outfp, laparams=laparams)
 
-        with open(f, 'rb') as fd:
-            for page in PDFPage.get_pages(fd, caching=True, check_extractable=True):
-                page_interpreter.process_page(page)
+        extracted.append((fname, outfp.getvalue()))
+        outfp.close()
 
-            text = fake_file_handle.getvalue()
-            # print(text)
-            extracted.append((f, text))
-        
-        converter.close()
-        fake_file_handle.close()
-    
     return extracted
-
-
-
-

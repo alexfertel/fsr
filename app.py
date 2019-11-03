@@ -23,7 +23,7 @@ def use_lsi_model():
 def change_directory(new_dir):
    global retrieval_system
    # TODO: Validate directory !?
-   retrieval_system.index_directory(new_dir)
+   return retrieval_system.index_directory(new_dir)
 
 @eel.expose
 def query(keywords):
