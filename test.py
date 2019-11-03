@@ -2,6 +2,7 @@ from src.fsr_api import FileSystemRetrieval
 from src.term_doc_matrix import tfidf
 from src.latent_semantic import LatentSemanticModel
 import os
+import pprint
 
 if __name__ == "__main__":
     corpus = [
@@ -11,16 +12,17 @@ if __name__ == "__main__":
         'Is this the first document?',
     ]
 
+    corpus_folder = '/corpus/medicina_docs'
 
     # LSI Model test
     a = LatentSemanticModel(80)
     a.index(corpus)
-    print(a.query("first document"))
+    pprint.pprint(a.query("first document"))
      
-    # # TF-IDF test
-    print(tfidf(corpus)[0])
+    # TF-IDF test
+    pprint.pprint(tfidf(corpus)[0])
 
     # FSR API test
     f = FileSystemRetrieval(LatentSemanticModel(100))
-    f.index_directory(os.getcwd()+'/a')
-    print(f.query_directory('first'))
+    f.index_directory(os.getcwd() + corpus_folder)
+    pprint.pprint(f.query_directory('hemophilia and christmas disease, especially in regard to thespecific complication of pseudotumor formation (occurrence,pathogenesis, treatment, prognosis).'))
