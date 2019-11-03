@@ -27,4 +27,5 @@ def change_directory(new_dir):
 
 @eel.expose
 def query(keywords):
+   # TODO: return more info about result files
    return retrieval_system.query_directory(keywords)
