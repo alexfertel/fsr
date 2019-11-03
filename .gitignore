@@ -62,4 +62,4 @@ target/
 # ---> VisualStudioCode
 .settings
 
-
+corpus/*
