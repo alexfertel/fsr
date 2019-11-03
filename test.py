@@ -15,14 +15,14 @@ if __name__ == "__main__":
     corpus_folder = '/corpus/medicina_docs'
 
     # LSI Model test
-    a = LatentSemanticModel(80)
+    a = LatentSemanticModel(100)
     a.index(corpus)
     pprint.pprint(a.query("first document"))
      
-    # TF-IDF test
-    pprint.pprint(tfidf(corpus)[0])
+    # # TF-IDF test
+    pprint.pprint(tfidf(corpus)[0].todense())
 
-    # FSR API test
+    # # FSR API test
     f = FileSystemRetrieval(LatentSemanticModel(100))
     f.index_directory(os.getcwd() + corpus_folder)
     pprint.pprint(f.query_directory('hemophilia and christmas disease, especially in regard to thespecific complication of pseudotumor formation (occurrence,pathogenesis, treatment, prognosis).'))
