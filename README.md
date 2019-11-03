@@ -26,8 +26,9 @@ The following Python packages are required:
 In addition, the *wordnet* lemmatizer and the stopwords from the *nltk* package need to be installed separately by executing the following instructions in a Python shell:
 
 ```python
-nltk.download('wordnet')
-nltk.download('stopwords')
+>>> import nltk
+>>> nltk.download('wordnet')
+>>> nltk.download('stopwords')
 ```
 
 # Running it
