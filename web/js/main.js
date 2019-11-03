@@ -5,23 +5,42 @@ let app = new Vue({
       loading_model: false,
       model: 'vector',
       directory: '',
+      query: '',
       configured: false,
       files: []
     },
     methods: {
       load_model (model){
         this.loading_model = true;
+
         this.model = model;
 
         this.loading_model = false;
       },
       config (){
-        // Validate directory
+        // Change directory; let back end handle validations
+        eel.change_directory(this.directory);
 
         // Load model
+        switch (this.model) {
+          case 'vector':
+            eel.use_vector_model();
+            break;
+          case 'latent semantic':
+            eel.use_lsi_model();
+            break;
+          default:
+            break;
+        }
 
         // Allow queries
         this.configured = true;
+      },
+      run_query(){
+        // Make the query if the retrieval model has been loaded
+        if (this.configured){
+          files = eel.query(this.query);
+        }
       },
       load_files (){
         eel.extract_text(this.directory)(read_files);
