@@ -26,7 +26,7 @@ class VectorSpaceModel:
         i.e: sorted list of (similarity, document_index)
         """
 
-        print(query_doc)
+        # print(query_doc)
         # Add the query to the term-doc matrix
         query_tfidf = self.vectorizer.transform([query_doc])
 
@@ -47,5 +47,5 @@ class VectorSpaceModel:
         # results = [(cos_similarity[0,j], j) for j in range(0, cos_similarity.shape[1])]
         # results.sort(reverse=True)
         # print("results")
-        print(ind, row[ind])
+        # print(ind, row[ind])
         return [(row[i], i) for i in ind]

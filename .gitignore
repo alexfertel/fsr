@@ -63,3 +63,5 @@ target/
 .settings
 
 src/corpus/*
+paper/paper.pdf
+
