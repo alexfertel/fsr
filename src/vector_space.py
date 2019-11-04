@@ -7,28 +7,45 @@ import numpy as np
 
 
 class VectorSpaceModel:
+    def __init__(self):
+        pass
+    
     def index(self, documents):
-        'Create indices for the documents'
+        """
+        Create indices for the documents
+        """
         self.vectorizer = TfidfVectorizer(min_df=1, analyzer=pre_process, stop_words=stop_words)
         self.tfidf = self.vectorizer.fit_transform(documents)
 
     def query(self, query_doc):
-        '''
+        """
         Return the ranks of all documents with respect to the query in non-increasing order.
         The documents are denoted by its index in the document list passed to the .index method.
         The similarity values are also included.
         
         i.e: sorted list of (similarity, document_index)
-        '''
-        
+        """
+
+        print(query_doc)
         # Add the query to the term-doc matrix
         query_tfidf = self.vectorizer.transform([query_doc])
 
         # Compute cosine similarity
-        cos_similarity = cosine_similarity(query_tfidf, self.tfidf)
+        # cos_similarity = cosine_similarity(query_tfidf, self.tfidf)
+
+        pairwise_similarity = query_tfidf * self.tfidf.T 
+
+        arr = pairwise_similarity.toarray()
+        row = arr[0]
+        length = self.tfidf.shape[0]
+        ind = np.argpartition(row, -length)[-length:]
+        ind = ind[np.argsort(row[ind])]
+        ind = np.flip(ind)
+
 
         # Sort documents using similarity with respect to the query
-        results = [(cos_similarity[0,j], j-1) for j in range(0, cos_similarity.shape[1])]
-        results.sort(reverse=True)
-
-        return results
+        # results = [(cos_similarity[0,j], j) for j in range(0, cos_similarity.shape[1])]
+        # results.sort(reverse=True)
+        # print("results")
+        print(ind, row[ind])
+        return [(row[i], i) for i in ind]

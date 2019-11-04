@@ -50,13 +50,13 @@
 
       <div class="divider"></div>
 
-      <div class="columns">
+      <div class="columns" style="min-height: 90vh;">
         <div class="column">
           <!-- Left column -->
           <div class="form-group m-2">
             <!-- <label for="query" class="form-label label-sm">Query</label> -->
             <div class="has-icon-left input-group">
-              <input type="text" class="form-input input-sm" :class="{disabled: !configured}" id="query"
+              <input type="text" class="form-input input-sm" :class="{disabled: !configured}" id="query" v-model="query"
                 placeholder="Make a query">
               <i class="form-icon icon icon-search"></i>
               <button class="btn loading btn-sm" v-if="loading">Search</button>
@@ -122,15 +122,15 @@
 
           </div>
 
-          <div class="divider"></div>
+          <!-- <div class="divider"></div> -->
 
-          <div class="columns">
+          <!-- <div class="columns">
             <div class="column">
               <div class="text-center">
                 <span class="label label-secondary">Evaluation</span>
               </div>
             </div>
-          </div>    
+          </div>     -->
         </div>
       </div>
 

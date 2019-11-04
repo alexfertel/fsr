@@ -23,6 +23,8 @@ class FileSystemRetrieval:
 
         # Tell retrieval model to index the documents
         texts = [text for (_, text) in documents]
+        print(documents)
+        print(texts)
         self.retrieval_model.index(texts)
         return True
 

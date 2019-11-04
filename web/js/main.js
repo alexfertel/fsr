@@ -13,20 +13,26 @@ let app = new Vue({
     },
     methods: {
         load_model(model) {
-            this.loading = true;
-
-            eel.use_model(model)(() => {
-                this.model = model;
-                this.loading = false;
-            });
+            this.model = model;
         },
         config() {
+            // Is model loaded?
+            eel.check_loaded()(loaded => {
+                if (!loaded) {
+                    this.load_model(this.model);
+                }
+                // Load model
+                this.loading = true;
+                eel.use_model(this.model)(() => {
+                    this.loading = false;
 
-            // Change directory; let back end handle validations
-            eel.change_directory(this.directory)();
+                    // Change directory; let back-end handle validations
+                    eel.change_directory(this.directory)();
 
-            // Allow queries
-            this.configured = true;
+                    // Allow queries
+                    this.configured = true;
+                });
+            })
         },
         run_query() {
             this.loading = true;

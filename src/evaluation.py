@@ -2,7 +2,6 @@
 Evaluation for the Retrieval Information Models
 """
 
-
 def precision(cnt_rr, cnt_r):
     """
     The precision is the ratio ``tp / (tp + fp)`` where ``tp`` is the number of
