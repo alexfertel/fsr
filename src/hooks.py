@@ -1,4 +1,5 @@
 import eel
+import os
 from .fsr_api import FileSystemRetrieval
 from .latent_semantic import LatentSemanticModel
 from .vector_space import VectorSpaceModel
@@ -31,12 +32,14 @@ def use_lsi_model():
 @eel.expose
 def change_directory(new_dir):
     global retrieval_system
-    # TODO: Validate directory !?
-    
-    # if not retrieval_system:
-    #     retrieval_system = FileSystemRetrieval(LatentSemanticModel(100))
-    print(new_dir)
+    # print(new_dir)
     return retrieval_system.index_directory(new_dir)
+
+@eel.expose
+def validate_dir(dir):
+    is_valid = os.path.isdir(dir)
+    print(is_valid)
+    return is_valid
 
 @eel.expose
 def query(keywords):

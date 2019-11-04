@@ -10,6 +10,16 @@ let app = new Vue({
         files: [],
         displayed_files: [],
         result_size: 5,
+        validated_dir: false,
+        valid_dir: null,
+    },
+    computed: {
+        dir_success: function() {
+            return {
+                'is-success': this.validated_dir && this.valid_dir,
+                'is-error': this.validated_dir && !this.valid_dir
+            }
+        }
     },
     methods: {
         load_model(model) {
@@ -26,11 +36,27 @@ let app = new Vue({
                 eel.use_model(this.model)(() => {
                     this.loading = false;
 
-                    // Change directory; let back-end handle validations
-                    eel.change_directory(this.directory)();
+                    if (!this.validated_dir) {
+                        eel.validate_dir(this.directory)(is_valid => {
+                            this.validated_dir = true;
+                            this.valid_dir = is_valid;
 
-                    // Allow queries
-                    this.configured = true;
+                            if (this.valid_dir) {
+                                // Change directory;
+                                eel.change_directory(this.directory)();
+
+                                // Allow queries
+                                this.configured = true;
+                            }
+                        });
+                    }
+                    else {
+                        // Change directory;
+                        eel.change_directory(this.directory)();
+
+                        // Allow queries
+                        this.configured = true;
+                    }
                 });
             })
         },
