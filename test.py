@@ -13,18 +13,18 @@ if __name__ == "__main__":
         'Is this the first document?',
     ]
 
-    corpus_folder = 'src/corpus/medicina docs'
+    corpus_folder = 'src/corpus/happy'
     # corpus_folder = '/home/alex/code/simulations/kojo/paper'
 
-    # LSI Model test
+    # # LSI Model test
     # a = LatentSemanticModel(100)
     # a.index(corpus)
-    # pprint.pprint(a.query("first document"))
+    # pprint.pprint(a.query("this is the first document"))
 
     # Vector Space Model test
-    a = VectorSpaceModel()
-    a.index(corpus)
-    pprint.pprint(a.query("first document"))
+    # a = VectorSpaceModel()
+    # a.index(corpus)
+    # pprint.pprint(a.query("first document"))
      
     # # TF-IDF test
     # pprint.pprint(tfidf(corpus)[0].todense())
@@ -34,3 +34,7 @@ if __name__ == "__main__":
     # f.index_directory(corpus_folder)
     # # pprint.pprint(f.query_directory('hemophilia and christmas disease, especially in regard to the specific complication of pseudotumor formation (occurrence,pathogenesis, treatment, prognosis).'))
     # pprint.pprint(f.query_directory('mejora'))
+
+    f = FileSystemRetrieval(VectorSpaceModel())
+    f.index_directory(corpus_folder)
+    pprint.pprint(f.query_directory('friend lonely'))

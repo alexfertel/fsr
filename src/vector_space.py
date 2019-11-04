@@ -28,7 +28,7 @@ class VectorSpaceModel:
         cos_similarity = cosine_similarity(query_tfidf, self.tfidf)
 
         # Sort documents using similarity with respect to the query
-        results = [(cos_similarity[0,j], j-1) for j in range(0, cos_similarity.shape[1])]
+        results = [(cos_similarity[0,j], j) for j in range(cos_similarity.shape[1])]
         results.sort(reverse=True)
 
         return results
