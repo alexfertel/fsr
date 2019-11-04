@@ -8,12 +8,12 @@ import pprint
 
 if __name__ == "__main__":
     # read query file
-    path = os.getcwd() + '/corpus/query.txt'
+    path = os.getcwd() + '/src/corpus/medicina query/all.txt'
     with open(path, 'r') as myfile:
         data = myfile.read()
 
     query = json.loads(data)
-    corpus_folder = '/corpus/medicina_docs'
+    corpus_folder = '/src/corpus/medicina_docs'
     top = []
 
     # # FSR API test
@@ -27,7 +27,7 @@ if __name__ == "__main__":
 
     # Me quedo con los primero R del ranking
     for i in range(retrieved_documents):
-        top.append((ranking[i].split("/")[-1]).split("\\")[-1])
+        top.append((ranking[i][0].split("/")[-1]).split("\\")[-1])
 
     #####################
     # Evaluation Tester #

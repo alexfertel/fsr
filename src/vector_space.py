@@ -30,11 +30,8 @@ class VectorSpaceModel:
         # Add the query to the term-doc matrix
         query_tfidf = self.vectorizer.transform([query_doc])
 
-        # Compute cosine similarity
-        # cos_similarity = cosine_similarity(query_tfidf, self.tfidf)
-
+        # Sort documents using similarity with respect to the query
         pairwise_similarity = query_tfidf * self.tfidf.T 
-
         arr = pairwise_similarity.toarray()
         row = arr[0]
         length = self.tfidf.shape[0]
@@ -42,10 +39,4 @@ class VectorSpaceModel:
         ind = ind[np.argsort(row[ind])]
         ind = np.flip(ind)
 
-
-        # Sort documents using similarity with respect to the query
-        # results = [(cos_similarity[0,j], j) for j in range(0, cos_similarity.shape[1])]
-        # results.sort(reverse=True)
-        # print("results")
-        print(ind, row[ind])
         return [(row[i], i) for i in ind]
