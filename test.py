@@ -16,7 +16,7 @@ if __name__ == "__main__":
     corpus_folder = '/corpus/medicina_docs'
     top = []
 
-    # FSR API test
+    # # FSR API test
     f = FileSystemRetrieval(LatentSemanticModel(100))
     f.index_directory(os.getcwd() + corpus_folder)
     ranking = f.query_directory(query[0]["Text"])
