@@ -54,5 +54,5 @@ class LatentSemanticModel:
         similarity_matrix = term_doc_matrix @ term_doc_matrix.T
         results = [(similarity_matrix[0,j], j-1) for j in range(1, similarity_matrix.shape[1])]
         results.sort(reverse=True)
-        # print(results, self.s)
+
         return results

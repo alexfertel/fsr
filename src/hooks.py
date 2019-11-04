@@ -44,5 +44,4 @@ def query(keywords):
     rank = retrieval_system.query_directory(keywords)
     print("Ranked documents!")
     print("Returning query result.")
-    print(rank)
     return rank

@@ -26,7 +26,6 @@ class VectorSpaceModel:
         i.e: sorted list of (similarity, document_index)
         """
 
-        print(query_doc)
         # Add the query to the term-doc matrix
         query_tfidf = self.vectorizer.transform([query_doc])
 

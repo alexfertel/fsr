@@ -4,9 +4,7 @@ from .pdf_extractor import extract_pdfs
 
 def extract_text(path):
     files = read_dir(path)
-    # print(files)
     result = extract_txts(files['txts']) + extract_pdfs(files['pdfs'])
-    # print(result)
     return result
 
 def read_dir(path):
