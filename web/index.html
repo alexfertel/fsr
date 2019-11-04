@@ -60,7 +60,8 @@
                 placeholder="Make a query">
               <i class="form-icon icon icon-search"></i>
               <button class="btn loading btn-sm" v-if="loading">Search</button>
-              <button class="btn btn-secondary input-group-btn btn-sm" :class="{disabled: !configured}" v-else @click="run_query">Search</button>
+              <button class="btn btn-secondary input-group-btn btn-sm" :class="{disabled: !configured}" v-else
+                @click="run_query">Search</button>
             </div>
           </div>
 
@@ -69,18 +70,28 @@
           <div class="mx-2 py-1 text-justify text-center text-dark s-rounded" v-if="files.length > 0"
             style="background-color: #eef0f3; opacity: .9; max-height: 80vh; overflow-x: hidden; overflow-y: auto;">
 
-            <div class="tile tile-centered ml-2" v-for="file in displayed_files">
-              <div class="tile-icon">
-                <i class="icon icon-copy"></i>
+            <div class="popover popover-right">
+              <div class="tile tile-centered" v-for="file in displayed_files">
+                <div class="tile-icon">
+                  <i class="icon icon-copy"></i>
+                </div>
+                <div class="tile-content">
+                  <div class="tile-title">{{ file[0].split('/')[file[0].split('/').length - 1] }}</div>
+                  <small class="tile-subtitle text-success text-break">{{ file[1] }}</small>
+                </div>
+                <div class="tile-action">
+                  <button class="btn btn-link">
+                    <i class="icon icon-more-vert"></i>
+                  </button>
+                </div>
               </div>
-              <div class="tile-content">
-                <div class="tile-title">{{ file[0].split('/')[file[0].split('/').length - 1] }}</div>
-                <small class="tile-subtitle text-success text-break">{{ file[1] }}</small>
-              </div>
-              <div class="tile-action">
-                <!-- <button class="btn btn-link">
-                <i class="icon icon-more-vert"></i>
-              </button> -->
+
+              <div class="popover-container">
+                <div class="card">
+                  <div class="card-header">Some content</div>
+                  <div class="card-body">Some more content</div>
+                  <div class="card-footer">Final content</div>
+                </div>
               </div>
             </div>
           </div>
@@ -105,8 +116,12 @@
             </label>
 
             <label class="form-label label-sm">Directory</label>
-            <input type="text" class="form-input input-sm" id="directory" v-model="directory"
+            <div class="has-icon-right">
+              <input type="text" class="form-input input-sm" :class="dir_success" id="directory" v-model="directory" @keyup="validated_dir = false"
               placeholder="Choose a path">
+              <i class="form-icon icon icon-check icon-sm" v-if="validated_dir && valid_dir === true"></i>
+              <i class="form-icon icon icon-close icon-sm" v-if="validated_dir && valid_dir === false"></i>
+            </div>
             <div class="divider"></div>
 
             <label class="form-label label-sm">Relevant</label>

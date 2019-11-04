@@ -2,6 +2,7 @@
 Evaluation for the Retrieval Information Models
 """
 
+
 def precision(cnt_rr, cnt_r):
     """
     The precision is the ratio ``tp / (tp + fp)`` where ``tp`` is the number of
@@ -62,14 +63,21 @@ def f_measure(cnt_rr, relevant_docs, retrieved_docs, beta=1):
     p = precision(cnt_rr, retrieved_docs)
     r = recall(cnt_rr, relevant_docs)
 
-    return (1 + beta ** 2) / 1 / p + beta ** 2 / r
+    if r == 0 and p == 0:
+        return 0
+
+    return (1 + beta ** 2) * (p * r / (beta ** 2 * p) + r)
 
 
 def r_precision(cnt_rr, relevant_docs):
     """
 
     :param cnt_rr: Total de documentos relevantes en los primeros R del ranking
-    :param relevant_docs: Total de documentos relevantes
+    :param relevant_docs: R de ranking
     :return:
     """
+
+    if relevant_docs == 0:
+        return 0
+
     return cnt_rr / relevant_docs
