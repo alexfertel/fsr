@@ -1,7 +1,6 @@
 import eel
-from src.fsr_api import FileSystemRetrieval
-from src.latent_semantic import LatentSemanticModel
-
+from .fsr_api import FileSystemRetrieval
+from .latent_semantic import LatentSemanticModel
 
 retrieval_system = None
 
@@ -21,11 +20,12 @@ def use_lsi_model():
    
 @eel.expose
 def change_directory(new_dir):
-   global retrieval_system
-   # TODO: Validate directory !?
-   return retrieval_system.index_directory(new_dir)
+    global retrieval_system
+    # TODO: Validate directory !?
+
+    return retrieval_system.index_directory(new_dir)
 
 @eel.expose
 def query(keywords):
-    # TODO: return more info about result files
+    global retrieval_system
     return retrieval_system.query_directory(keywords)
