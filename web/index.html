@@ -59,22 +59,23 @@
               <input type="text" class="form-input input-sm" :class="{disabled: !configured}" id="query"
                 placeholder="Make a query">
               <i class="form-icon icon icon-search"></i>
-              <button class="btn btn-secondary input-group-btn btn-sm" :class="{disabled: !configured}">Search</button>
+              <button class="btn loading btn-sm" v-if="loading">Search</button>
+              <button class="btn btn-secondary input-group-btn btn-sm" :class="{disabled: !configured}" v-else @click="run_query">Search</button>
             </div>
           </div>
 
           <div class="divider"></div>
 
           <div class="mx-2 py-1 text-justify text-center text-dark s-rounded" v-if="files.length > 0"
-            style="background-color: #eef0f3; opacity: .9; max-height: 100%;">
+            style="background-color: #eef0f3; opacity: .9; max-height: 80vh; overflow-x: hidden; overflow-y: auto;">
 
-            <div class="tile tile-centered ml-2" v-for="file in files">
+            <div class="tile tile-centered ml-2" v-for="file in displayed_files">
               <div class="tile-icon">
                 <i class="icon icon-copy"></i>
               </div>
               <div class="tile-content">
-                <div class="tile-title">spectre-docs.pdf</div>
-                <small class="tile-subtitle text-gray">14MB · Public · 1 Jan, 2017</small>
+                <div class="tile-title">{{ file[0].split('/')[file[0].split('/').length - 1] }}</div>
+                <small class="tile-subtitle text-success text-break">{{ file[1] }}</small>
               </div>
               <div class="tile-action">
                 <!-- <button class="btn btn-link">

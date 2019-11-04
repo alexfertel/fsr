@@ -17,17 +17,19 @@ class LatentSemanticModel:
         self.s = s
 
     def index(self, documents):
-        'Create indices for the documents'
+        """
+        Create indices for the documents
+        """
         self.tfidf_table, self.vocabulary, self.idf_weights = term_doc_matrix(documents)
 
     def query(self, query_doc):
-        '''
+        """
         Return the ranks of all documents with respect to the query in non-increasing order.
         The documents are denoted by its index in the document list passed to the .index method.
         The similarity values are also included.
         
         i.e: sorted list of (similarity, document_index)
-        '''
+        """
 
         # Preprocess the query
         query_tokens = pre_process(query_doc)
@@ -44,7 +46,7 @@ class LatentSemanticModel:
         term_doc_matrix = np.insert(self.tfidf_table.todense(), 0, query_col, axis=0)
 
         # Apply SVD decomposition and reduce dimensions of concept space
-        reduced_dimension = min(self.s, len(self.vocabulary)-1)
+        reduced_dimension = min(self.s, min(term_doc_matrix.shape)-1)
         svd = TruncatedSVD(n_components=reduced_dimension, algorithm='arpack')
         term_doc_matrix = svd.fit_transform(term_doc_matrix)
 
