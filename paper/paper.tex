@@ -4,7 +4,7 @@
 
 \setcounter{secnumdepth}{0}
 
-\title{Recuperación del Sistema de Ficheros}
+\title{Proyecto de Sistemas de Información}
 \author{Alexander Antonio González Fertel C-512 \hfill
 		\href{mailto:a.fertel@estudiantes.matcom.uh.cu}{a.fertel@estudiantes.matcom.uh.cu}\\
 		Hieu Do Ngoc C-511 \hfill
@@ -20,9 +20,22 @@
 	% \newpage
 
 	\section{Intro}
+
+	\section{Procesamiento de Texto}
+	El SRI es capaz de recibir documentos de texto plano (txt) y tambi\'en documentos de formato portable (pdf). En el caso de los documentos pdf, debido a la naturaleza de su codificaci\'on y la inexistencia de un \'estandar, es posible que para algunos documentos su decodificaci\'on funcione de manera correcta y sus textos son extra\'idos en su totalidad, y para otros este no devuelva el texto correcto de los documentos.
+
+	Una vez extra\'idos los textos de los documentos del directorio selecionado, se le aplica los siguientes procesamientos:
+
+	\begin{itemize}
+		\item An\'alisis lexicogr\'afico
+		\item Eliminaci\'on de stopwords
+		\item Lematizaci\'on
+	\end{itemize}
+
+	Se ha optado por utilizar la t\'ecnica de $lematizaci\'on$ en vez de $stemming$ porque este es un algoritmo m\'as complejo que produce resultados con mejor precisi\'on debido a que utiliza conocimientos lingu\'isticos, a diferencia de $stemming$
 	
 	\section{Modelo}
-	El modelo de recuperaci\'on de informaci\'on principal implementado por nuestro sistem de recuperaci\'on de informaci\'on es el modelo de Indexaci\'on Sem\'antica Latente (LSI).
+	El modelo de recuperaci\'on de informaci\'on principal implementado por el SRI es el modelo de Indexaci\'on Sem\'antica Latente (LSI).
 	
 	El modelo LSI es una variación del Modelo Vectorial, en la que los documentos se representan a partir de vectores de pesos no binarios, al igual que las consultas, la función de similitud es el coseno del ángulo entre el vector del documento y el de la consulta.
 
@@ -32,7 +45,7 @@
 		Sea t la cantidad de t\'erminos \'indice en la colecci\'on y N el total de documentos. Definamos $M=(m_{i,j})$ como la matriz de asociaci\'on de t\'ermino-documento con t filas y N columnas. Cada elemento $m_{i, j}$ de la matriz M es el peso asociado a la pareja t\'ermino i - documento j. 
 	\end{definition}
 	
-	Existen diferentes formas de generar estos valores $m_{i,j}$, ya sea usando la frecuencia t\'ermino-documento o usando la matriz de tf-idf. En nuestro SRI, se eligi\'o usar la matriz tf-idf como la matriz de asociaci\'on t\'ermino-documento, al ser este una de las t\'ecnicas de \textit{"term-weighting"} m\'as populares que existen en la actualidad. Adem\'as, su implementaci\'on resulta bastante sencillo y eficiente haciendo uso de la librer\'ia $scikit-learn$.
+	Existen diferentes formas de generar estos valores $m_{i,j}$, ya sea usando la frecuencia t\'ermino-documento o usando la matriz de tf-idf. En el SRI implementado, se utiliza la matriz tf-idf como la matriz de asociaci\'on t\'ermino-documento, al ser este una de las t\'ecnicas de \textit{"term-weighting"} m\'as populares que existen en la actualidad. Adem\'as, su implementaci\'on resulta bastante sencillo y eficiente haciendo uso de la librer\'ia $scikit-learn$.
 	
 	Para lograr la reducci\'on de dimensiones de la matriz $M$, el modelo LSI propone utilizar la t\'ecnica de descomposici\'on \textit{SVD} para descomponer la matriz $M$ en 3 componentes de la manera siguiente.
 
@@ -42,7 +55,7 @@
 	
 	La matriz $S$ es una matriz diagonal $r*r$ de valores singulares (ordenados de mayor a menor) donde $r = min(t, N)$ es el rango de la matriz $M$.
 	
-	Si conservamos s\'olamente los $s$ mayores valores singulares de $S$ y sus correspondientes columnas en $K$ y $D$. La matriz resultante es la matriz de rango $r$ que mayor aproxima a la matriz original $M$ usando como m\'etrica la norma de \textit{Frobenius}. Esta matriz esta dado por
+	Si se s\'olamente los $s$ mayores valores singulares de $S$ y sus correspondientes columnas en $K$ y $D$. La matriz resultante es la matriz de rango $r$ que mayor aproxima a la matriz original $M$ usando como m\'etrica la norma de \textit{Frobenius}. Esta matriz esta dado por
 	
 	\begin{equation}		
 		M_s = K_sS_sD^t_s
@@ -50,22 +63,29 @@
 
 	donde $s$, $s < r$, es la dimensionalidad del espacio de conceptos reducidos. La selecci\'on de un valor para $s$ se realiza para balancear 2 efectos opuestos. Primero, $s$ debe ser suficientemente grande para representar todas las propiedades de los datos reales. Y segundo, $s$ debe ser suficientemente peque\~no para permitir el filtrado de detalles irrelevantes en la representaci\'on.
 
-	Para nuestro modelo LSI, utilizamos la librer\'ia $scikit-learn$ para realizar la reducci\'on de dimensionalidad de la matriz $M$. La dimensionalidad del espacio de conceptos reducidos esta dado por
+	En el modelo LSI implementado, se utiliza la librer\'ia $scikit-learn$ para realizar la reducci\'on de dimensionalidad de la matriz $M$. La dimensionalidad del espacio de conceptos reducidos esta dado por
 
 	\begin{equation}
 		s = min(100, t, N)	
 	\end{equation}
 
-	debido a que esta librer\'ia recomienda a sus usuarios utilizar $s = 100$ cuando se trabaja en \'analisis de s\'emantica latente.
+	debido a que esta librer\'ia recomienda a sus usuarios utilizar $s = 100$ cuando se trabaja en an\'alisis de s\'emantica latente.
 
-	Para rankear los documentos con respecto a una consulta, simplemente modelamos la consulta como un \textit{pseudo-documento} en la matriz t\'ermino-documento $M$. Asumiendo que la consulta es el documento n\'umero 0, entonces la primera fila de la matriz $M^tM$ nos proporciona los valores de similaridad de los documentos con respecto a la consulta.
+	Para rankear los documentos con respecto a una consulta, simplemente se modela la consulta como un \textit{pseudo-documento} en la matriz t\'ermino-documento $M$. Asumiendo que la consulta es el documento n\'umero 0, entonces la primera fila de la matriz $M^tM$ proporciona los valores de similaridad de los documentos con respecto a la consulta.
 
 	Adem\'as, la aplicaci\'on provee una implementac\'ion del modelo cl\'asico de espacio vectorial para que el usuario pueda realizar comparaciones de los resultados obtenidos por los dos modelos.
 
+	\subsection{Creaci\'on de \'Indices}
+	Para mejorar la eficiencia del SRI cuando el usuario haga varias consultas sobre el mismo directorio, se realiza la creaci\'on de \'indice cuando el usuario escoge un directorio. Los \'indices son almacenados solamente en la memoria RAM, pero la implementaci\'on del sistema est\'a pensada para que este sea extensible y pueda ser f\'acilmente modificado para guardar los \'indices en el sistema de ficheros local.
+
+	En el modelo LSI, se almacena en memoria la matriz de pesos tf-idf calculado para la colecci\'on de documentos,que es usado posteriormente para agilizar la generaci\'on de la matriz $M$, y adem\'as se almacena el vocabulario y la tabla de valores idf, para poder transformar la consulta en un \textit{pseudo-documento} y agregarlo a la matriz tf-idf guardada.
+	
 	\section{Evaluación}
-	Para obtener estos resultados, escogimos 30 querys ya tagueadas sobre un corpus de 1033 documentos.\\ A continuación los promedios de precisión, recobrado, f-medida y r-precisión obtenidos, usando un R=10:
+	Para obtener realizar la evaluaci\'on del modelo LSI, se escogieron 30 consultas previamente tagueadas sobre un corpus de 1033 documentos; el resultado de las consultas viene dado por la lista de los documentos con coeficiente de similaridad con respecto a la consulta mayor que $0.5$, ordenado de m\'as similar a menos similar.
+	
+	A continuación los promedios de precisión, recobrado, f-medida y r-precisión obtenidos, usando un R=10:
 	\begin{enumerate}
-       \item Precisión Promerdio = 0.22
+       \item Precisión Promedio = 0.22
         \item Recobrado Promedio = 0.77
         \item F-medida Promedio = 4.83
         \item F1-medida Promedio = 3.10
