@@ -45,7 +45,8 @@ def validate_dir(dir):
 def query(keywords):
     global retrieval_system
     rank = retrieval_system.query_directory(keywords)
+    selected_rank = [item for item in rank if item[1] > 0.5]
     print("Ranked documents!")
     print("Returning query result.")
-    print(rank)
-    return rank
+    print(selected_rank)
+    return selected_rank
