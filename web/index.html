@@ -51,8 +51,45 @@
       <div class="divider"></div>
 
       <div class="columns" style="min-height: 90vh;">
+        <div class="column"></div>
         <div class="column">
           <!-- Left column -->
+          <div class="text-center">
+            <span class="label label-secondary">Configuration</span>
+          </div>
+          <div class="form-group m-2">
+            <label class="form-label label-sm">Model</label>
+            <label class="form-radio form-inline">
+              <input type="radio" name="model" checked @click="load_model('vector')">
+              <i class="form-icon"></i>Vector
+            </label>
+            <label class="form-radio form-inline">
+              <input type="radio" name="model" @click="load_model('latent semantic')">
+              <i class="form-icon"></i>Latent Semantic
+            </label>
+
+            <label class="form-label label-sm">Directory</label>
+            <div class="has-icon-right">
+              <input type="text" class="form-input input-sm" :class="dir_success" id="directory" v-model="directory" @keyup="validated_dir = false"
+              placeholder="Choose a path">
+              <i class="form-icon icon icon-check icon-sm" v-if="validated_dir && valid_dir === true"></i>
+              <i class="form-icon icon icon-close icon-sm" v-if="validated_dir && valid_dir === false"></i>
+            </div>
+
+            <!-- <label class="form-label label-sm">Relevant</label>
+            <input type="number" class="form-input input-sm" id="result_size" v-model="result_size"
+              placeholder="Choose how many relevant documents to show">
+            <div class="divider"></div> -->
+
+            <div class="text-center">
+              <button class="btn btn-primary btn-sm mt-2" @click="config">
+                <i class="icon icon-refresh icon-sm"></i> Submit
+              </button>
+            </div>
+          </div>
+
+          <div class="divider"></div>
+
           <div class="form-group m-2">
             <!-- <label for="query" class="form-label label-sm">Query</label> -->
             <div class="has-icon-left input-group">
@@ -86,67 +123,17 @@
                 </div>
               </div>
 
-              <div class="popover-container">
+              <!-- <div class="popover-container">
                 <div class="card">
                   <div class="card-header">Some content</div>
                   <div class="card-body">Some more content</div>
                   <div class="card-footer">Final content</div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
-
-        <div class="divider-vert"></div>
-
-        <div class="column">
-          <!-- Left column -->
-          <div class="text-center">
-            <span class="label label-secondary">Configuration</span>
-          </div>
-          <div class="form-group m-2">
-            <label class="form-label label-sm">Model</label>
-            <label class="form-radio">
-              <input type="radio" name="model" checked @click="load_model('vector')">
-              <i class="form-icon"></i>Vector
-            </label>
-            <label class="form-radio">
-              <input type="radio" name="model" @click="load_model('latent semantic')">
-              <i class="form-icon"></i>Latent Semantic
-            </label>
-
-            <label class="form-label label-sm">Directory</label>
-            <div class="has-icon-right">
-              <input type="text" class="form-input input-sm" :class="dir_success" id="directory" v-model="directory" @keyup="validated_dir = false"
-              placeholder="Choose a path">
-              <i class="form-icon icon icon-check icon-sm" v-if="validated_dir && valid_dir === true"></i>
-              <i class="form-icon icon icon-close icon-sm" v-if="validated_dir && valid_dir === false"></i>
-            </div>
-            <div class="divider"></div>
-
-            <label class="form-label label-sm">Relevant</label>
-            <input type="number" class="form-input input-sm" id="result_size" v-model="result_size"
-              placeholder="Choose how many relevant documents to show">
-            <div class="divider"></div>
-
-            <div class="text-center">
-              <button class="btn btn-primary btn-sm" @click="config">
-                <i class="icon icon-refresh icon-sm"></i> Submit
-              </button>
-            </div>
-
-          </div>
-
-          <!-- <div class="divider"></div> -->
-
-          <!-- <div class="columns">
-            <div class="column">
-              <div class="text-center">
-                <span class="label label-secondary">Evaluation</span>
-              </div>
-            </div>
-          </div>     -->
-        </div>
+        <div class="column"></div>
       </div>
 
 

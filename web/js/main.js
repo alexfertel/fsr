@@ -9,7 +9,7 @@ let app = new Vue({
         configured: false,
         files: [],
         displayed_files: [],
-        result_size: 5,
+        // result_size: 5,
         validated_dir: false,
         valid_dir: null,
     },
